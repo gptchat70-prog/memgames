@@ -1,4 +1,94 @@
-﻿'use client';
+# MemGames Milestone 4
+# Memory Palace v2
+
+Write-Host "Building Memory Palace v2..."
+
+
+New-Item -ItemType Directory -Force -Path "lib"
+New-Item -ItemType Directory -Force -Path "data"
+
+
+# Word bank
+
+@"
+export const words = [
+  "Tiger",
+  "Lighthouse",
+  "Mango",
+  "Violin",
+  "Bicycle",
+  "Candle",
+  "Telescope",
+  "Pillow",
+  "Hammer",
+  "Snowman",
+  "Rocket",
+  "Castle",
+  "Mountain",
+  "Camera",
+  "Bridge",
+  "Apple",
+  "River",
+  "Forest",
+  "Ocean",
+  "Clock"
+];
+"@ | Out-File data\words.ts -Encoding utf8
+
+
+
+# Memory engine
+
+@"
+import { words } from "@/data/words";
+
+
+export function generateWords(count:number = 10){
+
+ const shuffled=[...words]
+   .sort(()=>Math.random()-0.5);
+
+ return shuffled.slice(0,count);
+
+}
+
+
+export function calculateScore(
+ answers:string[],
+ correct:string[]
+){
+
+ let score=0;
+
+ answers.forEach((answer,index)=>{
+
+   if(
+     answer.trim().toLowerCase()
+     ===
+     correct[index].toLowerCase()
+   ){
+     score++;
+   }
+
+ });
+
+
+ return {
+   correct:score,
+   total:correct.length,
+   percentage:
+     Math.round((score/correct.length)*100)
+ };
+
+}
+"@ | Out-File lib\memory.ts -Encoding utf8
+
+
+
+# Memory game page
+
+@"
+'use client';
 
 import {useState} from 'react';
 import {generateWords,calculateScore} from '@/lib/memory';
@@ -43,7 +133,7 @@ return (
 <div className="mx-auto max-w-3xl">
 
 <h1 className="text-3xl font-bold mb-6">
-ðŸ§  Memory Palace Training
+🧠 Memory Palace Training
 </h1>
 
 
@@ -161,3 +251,7 @@ Accuracy:
 );
 
 }
+"@ | Out-File app\games\memory\page.tsx -Encoding utf8
+
+
+Write-Host "Memory Palace v2 complete."

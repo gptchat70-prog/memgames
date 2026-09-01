@@ -1,0 +1,22 @@
+﻿export const words = [
+  "Tiger",
+  "Lighthouse",
+  "Mango",
+  "Violin",
+  "Bicycle",
+  "Candle",
+  "Telescope",
+  "Pillow",
+  "Hammer",
+  "Snowman",
+  "Rocket",
+  "Castle",
+  "Mountain",
+  "Camera",
+  "Bridge",
+  "Apple",
+  "River",
+  "Forest",
+  "Ocean",
+  "Clock"
+];
