@@ -1,7 +1,8 @@
 ﻿'use client';
 
 import {useState} from 'react';
-import {generateWords,calculateScore} from '@/lib/memory';
+import {generateWords} from '@/lib/memory';
+import {calculateSmartScore} from '@/lib/scoring';
 
 
 export default function MemoryPage(){
@@ -26,7 +27,7 @@ function start(){
 function submit(){
 
  setResult(
-   calculateScore(
+   calculateSmartScore(
      answers,
      words
    )
@@ -43,7 +44,7 @@ return (
 <div className="mx-auto max-w-3xl">
 
 <h1 className="text-3xl font-bold mb-6">
-ðŸ§  Memory Palace Training
+  Memory Palace Training
 </h1>
 
 
@@ -136,16 +137,46 @@ Submit
 Your Score
 </h2>
 
-
-<p className="mt-4 text-xl">
-{result.correct}/{result.total}
+<p className="mt-4 text-3xl font-bold">
+{result.overall}%
 </p>
 
+<p className="mt-2">
+Overall Recall Score
+</p>
+
+
+<h3 className="mt-6 text-xl font-semibold">
+Details
+</h3>
+
+
+{result.details.map((item:any,index:number)=>(
+
+<div
+key={index}
+className="mt-3 border rounded p-3"
+>
 
 <p>
-Accuracy:
-{result.percentage}%
+<strong>{item.word}</strong>
 </p>
+
+<p>
+Your answer: {item.answer || "(blank)"}
+</p>
+
+<p>
+{item.feedback}
+</p>
+
+<p>
+Score: {item.score}%
+</p>
+
+</div>
+
+))}
 
 
 </div>
